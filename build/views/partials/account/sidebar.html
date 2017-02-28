@@ -1,0 +1,60 @@
+<div id="sidebar-nav" class="" >
+  <ul class="nav nav nav-pills nav-stacked dropshadow bg-white">
+    <li ui-sref-active-eq="active" ui-sref="root.account">
+      <a
+        class="dark"
+        ui-sref-active-eq="active"
+        ui-sref="root.account">
+        {{'account.my_account' | translate}}
+      </a>
+    </li>
+    <li ui-sref-active="active" ui-sref="root.account.commissions">
+      <a
+        ng-if="::$store.user.is_a('b2')"
+        class=""
+        ui-sref-active="active"
+        ui-sref="root.account.commissions">
+        {{'account.my_commissions' | translate}}
+      </a>
+    </li>
+    <li ui-sref-active="active" ui-sref="root.account.customer_orders">
+      <a
+        ng-if="::$store.user.is_a('b2')"
+        class=""
+        ui-sref-active="active"
+        ui-sref="root.account.customer_orders">
+        {{'account.customers_orders' | translate}}
+        <span class="badge pull-right">{{_.size($store.customer_orders)}}</span>
+      </a>
+    </li>
+    <li ui-sref-active="active" ui-sref="root.account.my_orders">
+      <a
+        class=""
+        ui-sref-active="active"
+        ui-sref="root.account.my_orders">
+        {{'account.my_orders' | translate}}
+        <span class="badge pull-right">{{_.size($store.orders)}}</span>
+      </a>
+    </li>
+    <!-- <a class="btn btn-white btn-raised" ui-sref-active="active" ui-sref="root.account.my_reviews">{{'account.my_reviews' | translate}}</a> -->
+    <!-- <a ng-if="$store.user.is_a('b1')" class="btn btn-white btn-raised" ui-sref="root.account.business_center">{{'account.my_business_center' | translate}}</a> -->
+
+    <!-- <a ng-if="::$store.user.is_a('b2')" class="btn btn-success dark btn-raised" ui-sref="root.account.replicated_site">{{'account.my_replicated_site' | translate}}</a>
+    <a ng-if="::$store.user.is_a('b2')" class="btn btn-white btn-raised" ui-sref-active="active" ui-sref="root.account.replicated_site.customize_banners">{{'account.customize_banners' | translate}}</a> -->
+  </ul>
+</div>
+
+<script type="text/javascript">
+  if (window.innerWidth > 768) {
+    $(function() {
+      $('#sidebar-nav').affix({
+        offset: {
+          bottom: ($('footer').outerHeight(true) +
+                  $('.application').outerHeight(true)) +
+                  40,
+          top: $('#sidebar-nav').offset().top
+        }
+      });
+    });
+  }
+</script>

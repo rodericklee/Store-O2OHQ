@@ -1,0 +1,33 @@
+<!-- BEGIN CART TOTALS -->
+<div class="cart-totals">
+  <table class="table table-condensed mb0">
+    <tbody class="border-none-children">
+      <tr class="">
+        <td class="text-left">{{'checkout.count_items' | translate:'{count: ' + ngCart.getTotalItemsForSummary() + '}'}}:</td>
+        <td class="text-right">{{ ngCart.getSubTotal() | price:false }}</td>
+      </tr>
+      <tr ng-if="true" class="bold text-success ">
+        <td class="text-left">{{'checkout.discount' | translate}}:</td>
+        <td class="text-right">{{ ((-1) * ngCart.getDiscountAmmount()) | price }}</td>
+      </tr>
+      <tr class=" ">
+        <td class="text-left">{{'checkout.shipping' | translate}}:</td>
+        <td class="text-right">{{ (ngCart.getShipping()) | price }}</td>
+      </tr>
+      <tr ng-if="ngCart.getTax() > 0" class="">
+        <td class="text-left">{{'checkout.duties' | translate}}:</td>
+        <td class="text-right">{{ngCart.getTax() | price}}</td>
+      </tr>
+      <tr ng-if="($store.yuan_conversion_rate * ngCart.getSubTotal()) > 2000" class="">
+        <td class="text-left">{{'checkout.tax' | translate}}:</td>
+        <td class="text-right">—</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="text-orange">
+        <td class="text-left"><h4 class="bold mt5">{{'checkout.order_total' | translate}}:</h4></td>
+        <td class="text-right"><h4 class="bold mt5">{{ngCart.totalCost() | price:false}}</h4></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

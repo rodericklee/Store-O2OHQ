@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ESLint Results</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+  
+    .eslint-report {
+      font-family: "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      padding: 20px 40px;
+    }
+  
+    .eslint-report h1 {
+      border-bottom: 1px solid #ddd;
+      line-height: 1;
+      padding-bottom: 12px;
+    }
+  
+    .eslint-report h2 {
+      padding-bottom: 9px;
+      line-height: 1;
+      margin-top: 24px;
+      margin-bottom: 9px;
+    }
+  
+    .eslint-report h3 {
+      line-height: 1;
+      margin-top: 0;
+    }
+  
+    .eslint-report a {
+      text-decoration: none;
+    }
+  
+    .eslint-report table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+  
+    .toggle-all-link {
+      font-size: 14px;
+    }
+  
+    .report-table {
+      font-size: 14px;
+      min-width: 800px;
+      border: 1px solid #e6e6e6;
+      margin: 10px;
+    }
+  
+    .report-table thead {
+      background-color: #eee;
+    }
+  
+    .report-table th {
+      text-align: left;
+      vertical-align: middle;
+    }
+  
+    .report-table th,
+    .report-table td {
+      padding: 4px 9px;
+      border: 1px solid #ccc;
+    }
+  
+    .report-table td {
+      line-height: 1.5;
+      vertical-align: top;
+    }
+  
+    .report-table .error-col {
+      width: 41px;
+    }
+  
+    .report-table .warning-col {
+      width: 63px;
+    }
+  
+    .report-table .toggle-link {
+      display: block;
+    }
+  
+    .report-table .danger td {
+      background-color: rgba(242, 222, 222, 0.8);
+    }
+  
+    .report-table .danger:hover td {
+      background-color: rgba(242, 222, 222, 1);
+    }
+  
+    .report-table .warning td {
+      background-color: rgba(252, 248, 227, 0.8);
+    }
+  
+    .report-table .warning:hover td {
+      background-color: rgba(252, 248, 227, 1);
+    }
+  
+    .report-table .success td {
+      background-color: rgba(223, 240, 216, 0.8);
+    }
+  
+    .report-table .success:hover td {
+      background-color: rgba(223, 240, 216, 1);
+    }
+  
+    .table-wrapper {
+      display: flex;
+      justify-content: flex-start;
+      width: 600px;
+      align-items: flex-end;
+    }
+  
+    .table-wrapper.occurances {
+      align-items: flex-start;
+    }
+  
+    .table-wrapper.occurances .table-column {
+      height: 180px;
+      overflow-y: auto;
+    }
+  
+    .table-column {
+      flex: 1;
+      margin: 10px;
+    }
+  
+    .summary-table {
+      width: 100%;
+    }
+  
+    .summary-table a {
+      display: block;
+    }
+  
+    .summary-table td {
+      padding: 4px 0;
+    }
+  
+    .summary-table td:last-child {
+      text-align: right;
+    }
+  
+    .summary-table tfoot td {
+      border-top: 2px solid #666;
+      font-weight: bold;
+    }
+  
+    .details-row.hidden {
+      display: none;
+    }
+  
+    .details-table {
+      font-size: 12px;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  
+    .details-table td {
+      border: 0;
+      padding: 1px 6px;
+    }
+  
+    .details-table td:first-child {
+      padding-left: 0;
+    }
+  
+    .details-table .location-col {
+      width: 25px;
+    }
+  
+    .details-table .rule-col {
+      white-space: nowrap;
+      width: 100px;
+    }
+  
+    .details-table .rule-col a {
+      display: block;
+    }
+  
+    .details-table .rule-col a:hover {
+      text-decoration: underline;
+    }
+  
+    .details-table .severity-col {
+      width: 45px;
+    }
+  
+    .details-table .msg-danger .severity-col {
+      color: #900;
+    }
+  
+    .details-table .msg-warning .severity-col {
+      color: #f90;
+    }
+  </style>
+
+    <script>
+      // yolo
+      function toggleAllDetails(node) {
+        var rows = document.querySelectorAll("tr.details-row");
+    
+        if (node.innerHTML === "(expand all)") {
+          node.innerHTML = "(collapse all)";
+    
+          for (var x = 0; x < rows.length; x++) {
+            var row = rows[x];
+            row.className = "details-row";
+          }
+        } else {
+          node.innerHTML = "(expand all)";
+    
+          for (var x = 0; x < rows.length; x++) {
+            var row = rows[x];
+            row.className = "details-row hidden";
+          }
+        }
+      }
+    
+      function toggleDetails(node) {
+        var parentRow = node.parentNode.parentNode;
+        var detailsRow = parentRow.nextSibling;
+    
+        if (detailsRow.className === "details-row hidden") {
+          detailsRow.className = "details-row";
+        } else {
+          detailsRow.className = "details-row hidden";
+        }
+      }
+    </script>
+</head>
+<body>
+  <div class="eslint-report">
+    <h1>ESLint Results</h1>
+
+      <h2>Summary</h2>
+      
+      <div class="table-wrapper">
+        <div class="table-column">
+          <table class="summary-table">
+              <tbody>
+                <tr>
+                  <td>Errors</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Warnings</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total alerts</td>
+                  <td>0</td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+        <div class="table-column">
+          <table class="summary-table">
+              <tbody>
+                <tr>
+                  <td>Files with errors</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Files with only warnings</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Clean files</td>
+                  <td>160</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total files linted</td>
+                  <td>160</td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+      </div>
+
+
+      <h2>File Breakdown
+          <a id="toggle" href="javascript:;" onclick="toggleAllDetails(this)" class="toggle-all-link">(expand all)</a></h2>
+      
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th class="error-col">Errors</th>
+            <th class="warning-col">Warnings</th>
+          </tr>
+        </thead>
+        <tbody><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/app.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/config/app_config_routes.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/config/app_run.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/account_business_center_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/account_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/account_reviews_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/all_products_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/brand_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/checkout_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/commissions_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/contact_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/filter_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/header_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/login_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/marketer_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/product_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/relations_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/replicated_site_banner_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/rma_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/search_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/controllers/store_controller.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/all_product_reviews_directive.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/angular-directive-input-prc_rid.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/angular-directive-input-ssn.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/focus.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/focusOn.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/forms/address_directive.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/forms/address_select_directive.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/forms/form_group_directive.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/forms/referral_input_directive.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/forms/show_errors.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/modal.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/ngCart.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/product_review_directive.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/spinner.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/star_rating_directive.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/uiBreadcrumbs.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/directives/unreviewed_product_directive.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/factories/factory_version.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/factories/resource_o2o.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/factories/resource_rma.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/factories/sm_homepage_entity.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/factories/store_factory.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/filters/brandMeta_filter.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/filters/filter.useful.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/filters/price_filter.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/filters/scrollspy.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/filters/startFrom.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/jquery.scripts.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/lodash.mixins.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/services/helpfulnessService.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/services/modalService.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/services/reviewsService.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/services/scroll_to.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/js/services/sharedProperties.js</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/account/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/account/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/checkout/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/checkout/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/commissions_table/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/commissions_table/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/contact/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/contact/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/countries_zones/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/countries_zones/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/datatables/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/datatables/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/filter/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/filter/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/general/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/general/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/home/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/home/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/login/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/login/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/order_status/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/order_status/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/other/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/other/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/product/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/product/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/rma/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/rma/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/signup/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/signup/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/store/en.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/json/translate/store/zh-hans.json</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/account.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/business_center/index.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/business_center/manage_brand.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/index.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/my_orders.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/my_reviews.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/order.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/sidebar.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/social_marketer/customers_orders.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/social_marketer/index_commissions.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/social_marketer/replicated_site/customize_banners.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/social_marketer/replicated_site/forecast_modal.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/social_marketer/replicated_site/products.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/social_marketer/replicated_site/summary.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/social_marketer/replicated_site/templates/banner_confirm_delete.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/social_marketer/replicated_site/templates/banner_modal.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/account/unreviewed_product.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/brand/index.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/billing_address.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/complete.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/index.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/info.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/modal_processing.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/payment_options/ali_pay.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/payment_options/apple_pay.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/payment_options/credit_card.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/payment_options/icbc_pay.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/payment_options/union_pay.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/checkout/shipping_address.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/contact/index.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/filter/filter.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/filter/search.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ngCart/addtocart_button.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ngCart/addtocart_fab.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ngCart/addtocart_single_line.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ngCart/cart.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ngCart/checkout.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ngCart/order_summary.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ngCart/summary.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ngCart/summary_badge.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/other/all_products.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/other/commissions_table.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/other/toc/en.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/other/toc/index.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/other/toc/zh-hans.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/relations/assets.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/relations/index.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/rma/index.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/rma/info.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/rma/status.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/signup/customer.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/signup/social_marketer.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/socialMarketer.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/carousel.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/order_status.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/product.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/reviews/all-reviews.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/reviews/default.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/reviews/product-rating.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/store.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/templates/brand_holder.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/store/templates/product_item_holder.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/b4_hax_header.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/base_modal.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/footer.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/header.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/login.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/spinner.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/star_rating/custom_uib_rating.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/star_rating/product_main.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/templates/address.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/ui/templates/loading_modal.html</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Volumes/MyDATA/MyWork/CurrentTask/AngularUnit/o2worldwide-storeGit/app/views/partials/uiBreadcrumbs/uiBreadcrumbs.tpl.html</td>
+              <td>0</td>
+              <td>0</td></tr></tbody>
+      </table>
+
+  </div>
+</body>
+</html>

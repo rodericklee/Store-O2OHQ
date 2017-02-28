@@ -1,0 +1,73 @@
+<section id="customer_orders" ng-if="!!$store.customer_orders && _.size($store.customer_orders) > 0">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <p class="m0 text-3x">{{'account.customers_orders' | translate}}</p>
+    </div>
+
+    <div class="panel-body p0">
+      <div class="table-responsive">
+        <table datatable="" dt-options="dtOptions" class="table table-hover">
+          <thead class="">
+            <tr>
+              <th width="10%" class="withripple">{{'general.created' | translate}}</th>
+              <th width="10%" class="withripple">{{'checkout.no' | translate}}</th>
+              <th width="15%" class="withripple">{{'checkout.system_status' | translate}}</th>
+              <th class="withripple hidden-sm hidden-xs">{{'checkout.order_name' | translate}}</th>
+              <th class="withripple hidden-sm hidden-xs">{{'checkout.tracking' | translate}}</th>
+              <th width="10%" class="withripple">{{'checkout.total' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody class="">
+            <tr
+              class="withripple text-capitalize"
+              ng-repeat="order in ::$store.customer_orders"
+              ui-sref="root.account.order({order_id:order.id})"
+              ng-class="{
+                'success': (
+                  order.order_status_id == 40 ||
+                  order.order_status_id == 80 ||
+                  order.order_status_id == 100 ||
+                  order.order_status_id == 110 ||
+                  order.order_status_id == 250
+                ),
+                'active': (
+                  order.order_status_id == 200 ||
+                  order.order_status_id == 210
+                ),
+                'danger': (
+                  order.order_status_id == 90 ||
+                  order.order_status_id == 220 ||
+                  order.order_status_id == 240
+                ),
+                'warning': (
+                  order.order_status_id == 20 ||
+                  order.order_status_id == 30
+                ),
+                'info': (
+                  order.order_status_id == 50 ||
+                  order.order_status_id == 70 ||
+                  order.order_status_id == 230
+                )
+              }">
+              <td class="">{{order.created | amDateFormat:'YYYY/MM/DD'}}</td>
+              <td>{{::order.invoice_no}}</td>
+              <td>{{'order_status.short.' + order.order_status | translate}}</td>
+              <td class="hidden-sm hidden-xs">{{::order.shipping_lastname}} {{::order.shipping_firstname}}</td>
+              <td class="hidden-sm hidden-xs">{{ ::( (order.tracking_number.length > 0) ? order.tracking_number : '—' ) }}</td>
+              <td>{{order.total | price:false}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div ng-if="_.size($store.customer_orders) == 0 && $state.current.name === 'root.account.customer_orders'">
+  <div class="well">
+    <h1 class="extra-large text-lighter-1x">{{'account.no_orders.title' | translate}}</h1>
+    <p class="lead text-2x text-lighter-2x">{{'account.no_orders.go_get_some' | translate}}</p>
+    <p class="text-large text-lighter-3x"><em>{{'account.no_orders.not_visible' | translate}}</em></p>
+  </div>
+</div>

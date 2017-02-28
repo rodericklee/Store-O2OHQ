@@ -1,0 +1,215 @@
+<div ng-if="product.sku" class="product container-fluid pb50" itemscope itemtype="http://schema.org/Product" itemid="#{{product.name.stringToSlug()}}">
+
+  <div ng-if="!_.isEmpty(product.categories)">
+    <ul class="breadcrumb pb15 pt15 hidden-xs" style="background-color: rgba(0, 0, 0, 0); margin-bottom: 0;">
+      <li ng-repeat="breadcrumb in breadcrumbs" class="text-lighter-2x"><a href="javascript:void(0)">{{category_lang(breadcrumb, 'name')}}</a></li>
+      <li class="active text-lighter-2x">{{get_lang_attr(product, 'name')}}</li>
+    </ul>
+    <div class="p5 pt10 pl0 pb20 text-lighter text-small"> {{product.category}} </div>
+  </div>
+
+  <div class="panel" ng-class="(!!_.isEmpty(product.categories)) ? 'mt10' : ''">
+    <div class="panel-body">
+      <div class="row">
+
+        <div class="images col-md-5 clearfix pb20">
+          <div class="col-md-2 col-sm-1 col-xs-2 p0">
+            <img ng-repeat="image in product.images" ng-class="{selected: $index==thumbnail.active_index}" ng-src="{{image.src}}" alt="{{image.alt}}" ng-click="thumbnail.show($index)" class="thumbnail mb5 img-responsive" />
+          </div>
+          <div class="col-md-10 col-sm-11 col-xs-10 p0">
+            <img ng-src="{{thumbnail.active_image.src}}" alt="{{thumbnail.active_image.alt}}" class="img-responsive center">
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <h1 class="pb0 mb0 mt0" ng-bind-html="get_lang_attr(product, 'name')"></h1>
+          <link class="hide" itemprop="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" href="{{window.location.href}}" />
+          <p class="mb0">{{'general.by' | translate}} <a itemprop="hasBrand" ui-sref="root.brand({brand_id: product.brand.id})">{{product.brand.id | brandMeta:'name'}}</a></p>
+
+          <!-- <a ng-click="gotoAnchor('reviews-anchor')"> -->
+            <div class="pb5">
+              <span uib-rating style="font-size:1.4em"
+                ng-class="(product.rating.num_reviews > 0) ? '' : 'pr5'"
+                class="star-rating text-lighter-1x"
+                ng-model="product.rating.average"
+                rating-states="::TEMPORARY_ROOTSCOPE_GET_STAR_STATES(product.rating.average, product.rating.num_reviews, true)"
+                max="5"
+                read-only="true">
+              </span>
+
+              <span
+                ng-if="product.rating.num_reviews > 0"
+                class="rating-count text-lighter-2x"
+                style="font-size:1.2em">
+                ({{product.rating.num_reviews}})
+              </span>
+            </div>
+          <!-- </a> -->
+
+          <hr class="mt0 mb10">
+
+          <div class="pb10 clearfix">
+            <div ng-if="!_.get($store.user, 'does_recive_5_percent_discount')">
+              <div class="price">
+                <span class="display-inline text-large">{{'product.price' | translate}}:</span>
+                <span class="display-inline text-orange bold text-large">{{get_price_str(product.price, true)}}</span>
+              </div>
+            </div>
+            <div ng-if="!!_.get($store.user, 'does_recive_5_percent_discount')">
+              <div class="price">
+                <div class="price">
+                  <span class="display-inline text-large">{{'product.member_price' | translate}}:</span>
+                  <span class="display-inline text-orange bold text-large">
+                    {{get_price_str(product.price, true)}}
+                  <span class="text-success bold">(-5%)</span>
+                </span>
+                </div>
+              </div>
+              <div class="sale-price">
+                <span class="display-inline text-large">{{'product.price' | translate}}:</span>
+                <span class="display-inline text-black text-lighter-2x bold" style="font-size: 1em;">
+                  <s>{{get_price_str(product.price)}}</s>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div ng-show="product.quantity == 0" class="">
+            <p class="text-danger bold text-1-5x text-2x mb0 pb0">{{'general.product_stock.no_stock' | translate}}</p>
+          </div>
+          <div ng-show="product.quantity <= 25 && product.quantity > 1">
+            <p class="text-danger text-1-5x mb0 pb0" translate="general.product_stock.only" translate-value-name="{{product.quantity}}"></p>
+          </div>
+          <div ng-show="product.quantity > 25">
+            <p class="text-1-5x mb0 pb0">
+              <span class="text-success">{{'general.product_stock.in_stock' | translate}}</span>
+              <!-- <span class="text-normal text-lighter-2x">{{product.quantity}}</span> -->
+            </p>
+          </div>
+
+          <p>
+            <span ng-if="!!$store.marketer.user">
+              {{'product.sold_by' | translate}}
+              <a ui-sref="root.marketer">{{$store.marketer.user.first_name}} {{$store.marketer.user.last_name}}</a>
+              {{'product.and' | translate}}
+            </span>
+          </p>
+
+          <div ngcart-addtocart product="product" quantity="1" style="single_line" click_state="root.checkout"></div>
+
+          <div class="pl10" ng-if="product.key_points.length">
+            <hr class="mt5 mb5">
+            <ul class="product-key-points show-bullets">
+              <li ng-repeat="keypoint in product.key_points" ng-show="$index<=10">
+                {{keypoint}}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- <div ng-if="is_product_in_cart" class="col-md-3">
+          <div class="center pb20">
+            {{'product.share' | translate}}:
+            <img src="assets/images/products/social_icons.png" alt="" class="display-inline">
+          </div>
+          <div ngcart-addtocart product="product" quantity="1" class="center" click_state="root.checkout"></div>
+        </div> -->
+
+        <div ngcart-addtocart product="product" quantity="1" style="fab" click_state="root.checkout"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- <div ng-if="$store.marketer && product.marketer_description" class="panel">
+    <div class="panel-heading">
+      <h2 class="text-orange"><strong>{{$store.marketer.user.first_name}} {{$store.marketer.user.last_name}}</strong> Product Description <small>Social Marketer</small></h2>
+    </div>
+    <div class="panel-body">
+      <div class="marketer-content" ng-bind-html="get_lang_attr(product, 'marketer_description')"></div>
+    </div>
+  </div> -->
+
+  <div class="panel">
+    <div class="panel-heading">
+      <h2 class="text-orange">
+        <strong>{{product.brand.id | brandMeta:'name'}}</strong>
+        {{'product.product_description' | translate}}
+        <!-- <small>{{'general.brand_owner' | translate}}</small> -->
+      </h2>
+    </div>
+    <div class="panel-body">
+      <div class="pl10" ng-bind-html="get_lang_attr(product, 'description')"></div>
+    </div>
+  </div>
+
+  <div ng-if="$store.marketer && product.marketer_description" class="row">
+    <div class="col-xs-12">
+      <h2 class="text-orange"><strong>{{$store.marketer.user.first_name}} {{$store.marketer.user.last_name}}</strong> Product Description <small>Social Marketer</small></h2>
+      <div class="clearfix"></div>
+      <div class="marketer-content" ng-bind-html="get_lang_attr(product, 'marketer_description')"></div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-heading">
+      <h2 class="text-orange pb0">{{'product.product_details' | translate}}</h2>
+    </div>
+    <div class="panel-body">
+
+      <div ng-if="product.details.dimensions">
+        <p>
+          <strong>Product Dimensions:</strong> {{product.details.weight}}
+        </p>
+      </div>
+
+      <div ng-if="product.details.weight">
+        <p>
+          <strong>Weight:</strong> {{product.details.weight}}
+        </p>
+      </div>
+
+      <div>
+        <p>
+          <strong>{{'product.details.shipping.title' | translate}}:</strong> {{'product.details.shipping.text' | translate}}
+        </p>
+      </div>
+
+      <div ng-if="product.details.sku">
+        <p>
+          <strong>Item model number:</strong> {{product.details.sku}}
+        </p>
+      </div>
+
+      <div ng-if="product.details.first_available">
+        <p>
+          <strong>Date first available on O2O:</strong> {{product.details.first_available | amDateFormat:'dddd, MMMM Do YYYY'}}
+        </p>
+      </div>
+
+      <div ng-if="!_.isEmpty(product.categories)" class="hidden-xs">
+        <ul class="breadcrumb pb15 pt15" style="background-color: rgba(0, 0, 0, 0); margin-bottom: 0;">
+          <li ng-repeat="breadcrumb in breadcrumbs" class="text-lighter-2x"><a href="javascript:void(0)">{{category_lang(breadcrumb, 'name')}}</a></li>
+          <li class="active text-lighter-2x">{{get_lang_attr(product, 'name')}}</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+<!-- <div id="anchor{{'reviews-anchor'}}" ng-if="product.rating.num_reviews >= 1" class="panel">
+    <all-product-reviews ng-model="product"></all-product-reviews>
+</div> -->
+
+<div ng-if="!product" class="container pb50 pt50">
+    <div class="jumbotron">
+        <div class="pb30">
+          <h1 class="extra-large text-center pb30">Sorry, we couldn't find the product you were looking for.</h1>
+          <a ui-sref="root.home" class="btn btn-orange btn-huge btn-raised center">
+            <i class="material-icons material-icons-keyboard_arrow_left"></i>
+            Back &nbsp;
+          </a>
+        </div>
+    </div>
+</div>

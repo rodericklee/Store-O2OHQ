@@ -1,0 +1,9 @@
+{
+  "login": {
+    "no_account" : "没有账号?",
+    "wrong_email_or_password" : "您输入的邮箱地址或密码有误，请重试.",
+    "unable_to_connect_server" : "暂时无法连接服务器，请稍后再试.",
+    "failed_to_connect_server": "连接服务器有误，请稍后再试.",
+    "already_loggedin" : "您已经登录."
+  }
+}

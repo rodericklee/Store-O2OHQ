@@ -1,0 +1,17 @@
+.review-product {
+  margin: 0 20px;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 20px 0;
+}
+
+.review-product img {
+  border: 1px solid #e8e8e8;
+}
+
+.review-product-info {
+  padding-left: 10px;
+}
+
+.review-title {
+  margin-top: 0;
+}

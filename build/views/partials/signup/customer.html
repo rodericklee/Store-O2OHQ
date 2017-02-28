@@ -1,0 +1,208 @@
+<div class="bg-signup clearfix">
+  <div class="pt20 pb20" style="background: url('assets/images/signup/signup-bg.jpg');">
+    <div class="container">
+      <div class="col-md-8 center">
+        <h1 class="border-left-orange mb20">
+          <span class="text-white">
+            <i class="material-icons material-icons-person_add pb5"></i>
+            {{'signup.customer.customer_signup' | translate}}
+          </span>
+
+          <a ui-sref="root.signup.social_marketer" class="btn btn-orange btn-lg btn-raised pull-right mt0 ml10" href="#/signup/signup/social_marketer">
+            {{'signup.customer.sm_signup' | translate}}
+            <i class="fa fa-chevron-circle-right pl5"></i>
+          </a>
+
+        </h1>
+      </div>
+    </div>
+
+  </div>
+  <!-- <img src="assets/images/signup/signup-bg.jpg" alt="" /> -->
+</div>
+<div class="container pb50"  ng-keydown="key_watch_register($event)">
+  <div id="customer_signup_form" ng-form="marketer_signup">
+    <div ng-if="!signup.submit_success" class="col-xs-12" >
+
+      <div class="row" ng-show="!signup.success">
+        <div class="col-md-8 center pt30">
+          <div class="panel">
+            <div class="panel-heading">
+              <h2 class="text-lighter-1x">
+                {{'signup.customer.h1' | translate}}
+              </h2>
+            </div>
+            <div class="panel-body">
+
+              <form-group label="{{ 'general.form.lname.placeholder' | translate }}">
+                <input
+                  class="form-control"
+                  name="last_name"
+                  ng-model="signup.form_data.last_name"
+                  required
+                  type="text">
+              </form-group>
+
+              <form-group label="{{ 'general.form.fname.label' | translate }}">
+                <input
+                  class="form-control"
+                  name="first_name"
+                  ng-model="signup.form_data.first_name"
+                  required
+                  type="text">
+              </form-group>
+
+              <form-group label="{{ 'general.form.email.label' | translate }}">
+                <input
+                  class="form-control"
+                  name="email"
+                  ng-model="signup.form_data.email"
+                  required
+                  type="email">
+                <p class="help-block">{{ 'signup.marketer.account.email.help' | translate }}</p>
+              </form-group>
+
+              <form-group label="{{ 'general.form.username.label' | translate }}">
+                <input
+                  class="form-control"
+                  name="username"
+                  ng-model="signup.form_data.username"
+                  required
+                  type="text">
+                <p class="help-text">
+
+                  <p class="help-block">{{ 'signup.customer.username.help1' | translate }}</p> <br>
+
+                  <div class="clearfix"></div>
+                  <span
+                    class="pl20 pt20 text-orange lead text-1-5xx"
+                    target="_blank"
+                    href="{{$store.replicated_url(signup.form_data.username, {"default_value": 'username'})}}"
+                    ng-bind-html="get_usernmae_html()"
+                    >
+                  </span>
+
+                  <br>
+
+                  <p class="help-block"><em>*{{ 'signup.customer.username.help2' | translate }}</em></p> <br>
+                  <p class="help-block"><em>*{{ 'signup.marketer.account.username.help3' | translate }}</em></p>
+                </p>
+              </form-group>
+
+              <form-group label="{{ 'general.form.phone.label' | translate }}">
+                <input
+                  class="form-control"
+                  name="phone"
+                  ng-model="signup.form_data.phone"
+                  required
+                  type="text">
+              </form-group>
+
+              <form-group label="{{ 'general.form.password.label' | translate }}">
+                <input
+                  class="form-control"
+                  name="password"
+                  ng-model="signup.form_data.password"
+                  required
+                  type="password">
+              </form-group>
+
+              <form-group label="{{ 'general.form.password_confirm.label' | translate }}">
+                <input
+                  class="form-control"
+                  name="password_confirm"
+                  ng-model="signup.form_data.password_confirm"
+                  required
+                  type="password">
+              </form-group>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <h2>{{ 'signup.marketer.optional.legend_h3' | translate }}</h2>
+            </div>
+            <div class="panel-body">
+              <form-group label="{{ 'signup.marketer.optional.referral.label' | translate }}">
+                <input
+                  class="form-control"
+                  name="text"
+                  ng-model="signup.form_data.referral"
+                  required
+                  type="text">
+              </form-group>
+            </div>
+          </div>
+
+          <div class="pull-right">
+            <div class="checkbox clearfix">
+              <label>
+                <input ng-model="signup.form_data.toc" name="toc" type="checkbox" required>
+                <span class="pl5">
+                  {{ 'general.form.toc_agreement.label' | translate }}
+                  <a ui-sref="root.toc" target="_blank">
+                    {{ 'general.form.toc_agreement.link' | translate }}
+                  </a>
+                </span>
+              </label>
+            </div>
+
+            <div ng-if="signup.show_form_errors" class="pt20">
+              <div ng-if="marketer_signup.toc.$error.required" class="alert alert-danger dropshadow">
+                {{ 'general.form.toc_agreement.error_required' | translate }}
+              </div>
+              <div ng-if="marketer_signup.$error.required" class="alert alert-danger dropshadow">
+                {{ 'general.form.error.required' | translate }}
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="clearfix"></div>
+
+          <div class="ml0">
+            <div ng-if="signup.submit_error">
+              <div class="clearfix"></div>
+
+              <div class="alert alert-danger" role="alert">
+                {{ 'general.error' | translate }}: {{signup.submit_error}}
+              </div>
+            </div>
+          </div>
+
+          <a ng-click="signup.submit()" class="btn btn-lg btn-raised btn-primary pull-right">
+             {{ 'general.register_cta' | translate }}
+             <i class="fa fa-user-plus pl5"></i>
+           </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div ng-if="signup.submit_success" class="col-md-6 col-lg-7 center">
+
+      <div ng-if="signup.submit_success" class="alert alert-success text-larger mt50 mb50" role="alert">
+        <strong>{{ 'general.success' | translate }}:</strong> {{signup.submit_success}}
+      </div>
+
+      <div ng-if="signup.backoffice_link !== false" class="full-width pt20">
+        <a ui-sref="root.home" class="btn btn-lg btn-white pull-left">
+          <i class="fa fa-chevron-circle-left pl5"></i>
+          {{ 'signup.complete.continue_shopping' | translate }}
+        </a>
+        <a ng-href="{{signup.backoffice_link}}" target="_blank" class="btn btn-lg btn-orange pull-right">
+          {{ 'signup.complete.goto_backoffice' | translate }}
+          <i class="fa fa-chevron-circle-right pl5"></i>
+        </a>
+      </div>
+      <div ng-if="signup.backoffice_link === false" class="full-width pt20">
+        <a ui-sref="root.home" class="btn btn-lg btn-orange center">
+          {{ 'signup.complete.continue_shopping' | translate }}
+          <i class="fa fa-chevron-circle-right pl5"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<form-group label="{{'general.form.gov_id_no.label' | translate}}">
+  <input
+    class="form-control"
+    name="shipping.gov_id_no"
+    ng-model="info.form_data.shipping.gov_id_no"
+    ng-required="true"
+    type="text">
+  <span class="help-block">{{ 'general.form.gov_id_no.help_valid' | translate }}</span>
+</form-group>
+
+<form-group label="{{ 'general.form.lname.placeholder' | translate }}">
+  <input
+    class="form-control"
+    name="shipping.last_name"
+    ng-model="info.form_data.shipping.last_name"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.fname.label' | translate }}">
+  <input
+    class="form-control"
+    name="shipping.first_name"
+    ng-model="info.form_data.shipping.first_name"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.state.label' | translate }}">
+  <select
+    class="form-control"
+    id="business-zone-select"
+    name="shipping.zone"
+    ng-model="info.form_data.shipping.zone"
+    ng-options="('zones.' + zone.id | translate) for zone in $store.zones | filter:{country_id:info.form_data.shipping.country.id} : true"
+    ng-required="true"
+    >
+  </select>
+</form-group>
+
+<form-group label="{{ 'general.form.city.label' | translate }}">
+  <input
+    class="form-control"
+    name="shipping.city"
+    ng-model="info.form_data.shipping.city"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.district.label' | translate }}">
+  <input
+    class="form-control"
+    name="shipping.district"
+    ng-model="info.form_data.shipping.district"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.address1.label' | translate }}">
+  <input
+    class="form-control"
+    name="shipping.address1"
+    ng-model="info.form_data.shipping.address1"
+    ng-required="true"
+    type="text">
+  <span class="help-block">{{ 'general.form.address1.help_include_town_village' | translate }}</span>
+</form-group>
+
+<form-group label="{{ 'general.form.address2.label' | translate }}">
+  <input
+    class="form-control"
+    name="shipping.address2"
+    ng-model="info.form_data.shipping.address2"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.postal_code.label' | translate }}">
+  <input
+    class="form-control"
+    name="shipping.zipcode"
+    ng-model="info.form_data.shipping.zipcode"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.country.label' | translate }}">
+  <select
+    class="form-control"
+    id="personal-country-select"
+    name="shipping.country"
+    ng-model="info.form_data.shipping.country"
+    ng-options="('countries.' + country.id | translate) for country in $store.countries"
+    ng-required="true"
+    >
+  </select>
+</form-group>
+
+<form-group label="{{ 'general.form.phone.label' | translate }}">
+  <input
+    class="form-control"
+    name="phone"
+    ng-model="info.form_data.shipping.phone"
+    ng-required="true"
+    type="tel">
+</form-group>

@@ -1,0 +1,333 @@
+<div class="checkout checkout-info">
+  <div class="container-fluid pb50">
+
+      <h1 class="border-left-orange extra-large text-lighter-1x mb20">
+        {{ 'checkout.checkout' | translate }}
+        <a ng-if="!$store.user" ng-click="toggleModal()" class="btn btn-white btn-raised ml20">
+          {{'general.login' | translate}}
+          <i class="fa fa-chevron-circle-right pl5"></i>
+        </a>
+      </h1>
+
+      <div class="col-md-3 pull-right-md">
+        <div id="rightCol"class="position-fixed-md pr20-md">
+          <div class="row">
+            <div class="col-lg-12 pr20-md pl20-md">
+              <div class="panel">
+                <div class="panel-heading visible-xs visible-sm">
+                  <div class="text-2x">
+                    {{'checkout.order_summary' | translate}}
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="hidden-xs hidden-sm">
+                    <div>
+                      <div>
+                        <a class="btn btn-lg btn-block btn-orange btn-raised" ng-click="info.submit()">
+                          {{ 'checkout.place_order' | translate }}
+                          <i class="fa fa-chevron-circle-right pl5"/>
+                        </a>
+                      </div>
+                      <h6 class="text-center">
+                        <span>
+                          {{ 'general.form.toc_agreement.checkout_label' | translate }}
+                          <a ui-sref="root.toc" target="_blank">
+                            {{ 'general.form.toc_agreement.link' | translate }}
+                          </a>
+                        </span>
+                      </h6>
+                    </div>
+
+                    <div ng-if="info.show_form_errors" class="pt20">
+                      <div ng-if="info_form.toc.$error.required" class="alert alert-danger dropshadow">
+                        {{ 'general.form.toc_agreement.error_required' | translate }}
+                      </div>
+                      <div ng-if="info_form.$error.required" class="alert alert-danger dropshadow">
+                        {{ 'general.form.error.required' | translate }}
+                      </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <hr class="mt0 mb10">
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12 center">
+                      <h4 class="bold hidden-xs hidden-sm">{{'checkout.order_summary' | translate}}</h4>
+                      <ngcart-order-summary></ngcart-order-summary>
+                    </div>
+                  </div>
+
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 p0">
+        <form id="info_form" name="info_form" ng-keydown="key_watch_info($event)" novalidate>
+          <div class="row">
+            <div class="col-lg-12" ng-if="!$store.user">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <p class="text-2x m0">{{ 'checkout.personal_details' | translate }}</p>
+                </div>
+
+                <div class="panel-body pb20 pt20 text-lighter-1x">
+                  <form-group label="{{ 'general.form.lname.placeholder' | translate }}">
+                    <input
+                      class="form-control"
+                      name="personal.last_name"
+                      ng-model="info.form_data.last_name"
+                      ng-required="!$store.user"
+                      type="text"/>
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.fname.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="personal.first_name"
+                      ng-model="info.form_data.first_name"
+                      ng-required="!$store.user"
+                      type="text">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.email.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="email"
+                      ng-model="info.form_data.email"
+                      ng-required="!$store.user"
+                      type="text">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.phone.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="phone"
+                      ng-model="info.form_data.phone"
+                      ng-required="!$store.user"
+                      type="tel">
+                  </form-group>
+
+                  <form-group label="{{'general.form.company_name.label' | translate}}">
+                    <input
+                      class="form-control"
+                      name="business.company_name"
+                      ng-model="info.form_data.company_name"
+                      type="text">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.password.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="password"
+                      ng-model="info.form_data.password"
+                      ng-required="!$store.user"
+                      type="password">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.password_confirm.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="password_confirm"
+                      ng-model="info.form_data.password_confirm"
+                      ng-required="!$store.user"
+                      type="password">
+                  </form-group>
+
+                </div>
+
+              </div>
+            </div>
+
+            <div ng-if="$store.user">
+              <input type="hidden" name="user_id" value="{{$store.user.id}}">
+            </div>
+
+            <div class="col-xs-12" ng-class="{'col-md-6 col-sm-6': !info.form_data.shipping_and_billing_same}">
+
+              <div class="panel panel-default shipping-address">
+                <div class="panel-heading">
+                  <p class="text-2x">{{ 'checkout.shipping_address' | translate }}</p>
+                </div>
+
+                <div class="panel-body pt20 pb20 text-lighter-1x">
+                  <!-- <div ng-include="'/views/partials/checkout/shipping_address.html'"></div> -->
+                  <address-select type="shipping" ng-model="info.form_data.shipping"></address-select>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="checkbox clearfix pb10">
+                  <label>
+                    <input ng-model="info.form_data.shipping_and_billing_same" name="shipping_and_billing_same" type="checkbox" required>
+                    <span class="pl5">
+                      {{ 'checkout.billing_shipping_adr_same' | translate }}
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div ng-if="!info.form_data.shipping_and_billing_same" class="col-md-6 col-sm-6 col-xs-12">
+              <div class="panel panel-default billing-address">
+                <div class="panel-heading">
+                  <p class="text-2x">{{ 'checkout.billing_address' | translate }}</p>
+                </div>
+                <div class="panel-body pt20 pb20 text-lighter-1x">
+                  <!-- <div ng-include="'/views/partials/checkout/billing_address.html'"> </div> -->
+                  <address-select type="billing" ng-model="info.form_data.billing"></address-select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="border-left-orange extra-large text-lighter-1x mb20">{{ 'checkout.your_order' | translate }}</h2>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <div ngcart-cart></div>
+            </div>
+
+          </div>
+
+          <div class="row text-lighter-1x">
+            <div class="col-lg-12">
+              <div class="alert alert-warning">
+                <h4>
+                  <strong>{{'general.warning' | translate}}</strong>:
+                  {{'checkout.shipping_warning.heading' | translate}}
+                </h4>
+
+                <p>
+                  {{'checkout.shipping_warning.body' | translate}}
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <h2 class="border-left-orange extra-large text-lighter-1x mb20">
+            {{ 'checkout.payment' | translate }}
+          </h2>
+
+          <div class="row payments mt20">
+            <div class="col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <img src="assets/images/checkout/payment_icons.jpg" alt="" class="ml10 img img-responsive text-lighter-1x" style="display: inline-block;">
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix">
+              <div class="col-md-3">
+                <ul class="nav nav-pills nav-stacked bg-white mb20 dropshadow">
+                  <li
+                    ng-repeat="p_option in payment_options"
+                    ng-click="!p_option.active || set_active_payment_option($index)"
+                    ng-show="p_option.active"
+                    ng-class="{'disabled': !p_option.active, 'active': is_active_payment_option($index)}"
+                    >
+                    <a class="withripple">
+
+                      {{'checkout.payment_options.' + p_option.id + '.label' | translate}}
+
+                      <i ng-if="!!p_option.icon" class="{{p_option.icon}}" style="max-height: 15px;"></i>
+
+                      <img
+                        ng-if="!!p_option.image && (!!p_option.image_active && !is_active_payment_option($index))"
+                        ng-src="{{p_option.image}}"
+                        alt="{{'checkout.payment_options.' + p_option.id + '.label' | translate}}"
+                        style="max-height: 15px;" />
+
+                      <img
+                        ng-if="!!p_option.image_active && is_active_payment_option($index)"
+                        ng-src="{{p_option.image_active}}"
+                        alt="{{'checkout.payment_options.' + p_option.id + '.label' | translate}}"
+                        style="max-height: 15px;" />
+
+                      <i class="fa fa-chevron-circle-right pt5 pull-right"></i>
+
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-9">
+                <uib-tabset active="active_payment_option" vertical="true" class="white-bg dropshadow">
+                  <uib-tab index="$index" ng-repeat="p_option in payment_options">
+                    <div class="p20 clearfix" ng-include="p_option.view"></div>
+                  </uib-tab>
+                </uib-tabset>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 mt20">
+
+              <div class="panel">
+                <div class="panel-body">
+                  <div ng-if="info.show_form_errors" class="pt20">
+                    <div ng-if="info_form.toc.$error.required" class="alert alert-danger dropshadow">
+                      {{ 'general.form.toc_agreement.error_required' | translate }}
+                    </div>
+                    <div ng-if="info_form.$error.required" class="alert alert-danger dropshadow">
+                      {{ 'general.form.error.required' | translate }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <a class="btn btn-lg btn-block btn-orange btn-raised" ng-click="info.submit()">
+                        {{ 'checkout.place_order' | translate }}
+                        <i class="fa fa-chevron-circle-right pl5"/>
+                      </a>
+                    </div>
+                    <div class="col-sm-8">
+                      <h4 class="bold text-orange hidden-xs">{{'checkout.order_total' | translate}}: {{$cart.totalCost() | price}}</h4>
+                      <h6 class="text-center text-left-sm font-12px">
+                        {{ 'general.form.toc_agreement.checkout_label' | translate }}
+                        <a ui-sref="root.toc" target="_blank">
+                          {{ 'general.form.toc_agreement.link' | translate }}
+                        </a>
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+<modal id="login_modal" size='sm' title="{{'general.login' | translate}}" visible="{{showModal}}" parent-visible-attr="showModal" close="false" success="false">
+  <form id="checkout-login-form" ng-submit="login_function($event)" role="form" ng-keydown="key_watch_login($event)" novalidate>
+    <div class="form-group label-floating is-empty" show-errors>
+      <label class="control-label" for="email">{{'general.form.email.label' | translate}}</label>
+      <input id="checkout-login-email" focus-on="root.checkout.info.login.email" autofocus ng-model="email" name="email" type="email" class="form-control" id="email" required/>
+    </div>
+    <div class="form-group label-floating is-empty" show-errors>
+      <label class="control-label" for="password">{{'general.form.password.label' | translate}}</label>
+      <input id="checkout-login-password" ng-model="password" name="password" type="password" class="form-control" id="password" required />
+    </div>
+    <button type="submit" class="btn btn-orange pull-right">
+      {{'general.login' | translate}}
+      <i class="fa fa-chevron-circle-right pl5"></i>
+    </button>
+    <div class="clearfix"></div>
+  </form>
+</modal>
+
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>

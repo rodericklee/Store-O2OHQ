@@ -1,0 +1,42 @@
+<div class="row">
+  <div ng-if="!!inCart()" class="col-md-4 col-xs-12">
+    <a
+      ng-disabled="!data.quantity"
+      class="btn btn-raised btn-orange btn-block"
+      ng-click="add_to_cart_clicked(q, data)"
+      >
+        <i class="material-icons material-icons-add_shopping_cart pl5 mt-3 text-lighter-1x pr5"></i>
+       {{ 'general.update_cart' | translate }}
+    </a>
+  </div>
+
+  <div ng-if="!inCart()" class="col-xs-12">
+    <div class="row">
+      <div class="col-md-4 col-xs-6">
+        <a
+          ng-disabled="!data.quantity"
+          class="btn btn-raised btn-default btn-block"
+          ng-click="add_to_cart_clicked(q, data)"
+          >
+           {{ 'general.buy_it_now' | translate }}
+        </a>
+      </div>
+
+      <div class="col-md-4 col-xs-6">
+        <a
+          ng-disabled="!data.quantity"
+          class="btn btn-raised btn-orange btn-block"
+          ng-click="add_to_cart_clicked(q, data, false);"
+          >
+            <i class="material-icons material-icons-add_shopping_cart pl5 mt-3 text-lighter-1x pr5"></i>
+           {{ 'general.add_to_cart' | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div ng-form class="display-inline">
+  <span class="display-inline mr10" translate="general.quantity"></span>
+  <input name="item_quantity" type="number" ng-model="q" class="item_quantity">
+</div> -->

@@ -1,0 +1,105 @@
+<div class="clearfix"></div>
+<form-group label="{{'general.form.gov_id_no.label' | translate}}">
+  <input
+    class="form-control"
+    name="{{type}}.gov_id_no"
+    ng-model="ngModel.gov_id_no"
+    ng-required="true"
+    type="text">
+  <span class="help-block">{{ 'general.form.gov_id_no.help_valid' | translate }}</span>
+</form-group>
+
+<form-group label="{{ 'general.form.lname.placeholder' | translate }}">
+  <input
+    class="form-control"
+    name="{{type}}.last_name"
+    ng-model="ngModel.last_name"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.fname.label' | translate }}">
+  <input
+    class="form-control"
+    name="{{type}}.first_name"
+    ng-model="ngModel.first_name"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.country.label' | translate }}">
+  <select
+    class="form-control"
+    id="{{type}}-country_select"
+    name="{{type}}.country"
+    ng-model="ngModel.country"
+    ng-options="('countries.' + country.id | translate) for country in $store.countries"
+    ng-required="true"
+    >
+  </select>
+</form-group>
+
+<form-group label="{{ 'general.form.state.label' | translate }}">
+  <select
+    class="form-control"
+    id="{{type}}-zone_select"
+    name="{{type}}.zone"
+    ng-model="ngModel.zone"
+    ng-options="('zones.' + zone.id | translate) for zone in $store.zones | filter:{country_id:ngModel.country.id} : true"
+    ng-required="true"
+    >
+  </select>
+</form-group>
+
+<form-group label="{{ 'general.form.city.label' | translate }}">
+  <input
+    class="form-control"
+    name="{{type}}.city"
+    ng-model="ngModel.city"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.district.label' | translate }}">
+  <input
+    class="form-control"
+    name="{{type}}.district"
+    ng-model="ngModel.district"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.address1.label' | translate }}">
+  <input
+    class="form-control"
+    name="{{type}}.address1"
+    ng-model="ngModel.address1"
+    ng-required="true"
+    type="text">
+  <span class="help-block">{{ 'general.form.address1.help_include_town_village' | translate }}</span>
+</form-group>
+
+<form-group label="{{ 'general.form.address2.label' | translate }}">
+  <input
+    class="form-control"
+    name="{{type}}.address2"
+    ng-model="ngModel.address2"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.postal_code.label' | translate }}">
+  <input
+    class="form-control"
+    name="{{type}}.zipcode"
+    ng-model="ngModel.zipcode"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.phone.label' | translate }}">
+  <input
+    class="form-control"
+    name="{{type}}.phone"
+    ng-model="ngModel.phone"
+    ng-required="true"
+    type="tel">
+</form-group>

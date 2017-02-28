@@ -1,0 +1,11 @@
+<div class="modal-header" ng-if="!_.isEmpty(headerText)">
+  <h3>{{headerText}}</h3>
+</div>
+<div class="modal-body">
+  <div ng-if="!_.isEmpty(body)" ng-bind-html="bodyHtml"></div>
+  <div ng-if="_.isEmpty(body)" class="col-xs-3 center pt20 pb20"><div spinner></div></div>
+</div>
+<div class="modal-footer" ng-if="showFooter && (!_.isEmpty(closeButtonText) || !_.isEmpty(actionButtonText))">
+  <button ng-if="!_.isEmpty(closeButtonText)" type="button" class="btn btn-white" data-ng-click="close()">{{closeButtonText}}</button>
+  <button ng-if="!_.isEmpty(actionButtonText)" class="btn btn-orange" data-ng-click="ok();">{{actionButtonText}}</button>
+</div>

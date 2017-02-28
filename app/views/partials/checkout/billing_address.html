@@ -1,0 +1,105 @@
+<form-group label="{{'general.form.gov_id_no.label' | translate}}">
+  <input
+    class="form-control"
+    name="billing.gov_id_no"
+    ng-model="info.form_data.billing.gov_id_no"
+    ng-required="true"
+    type="text">
+  <span class="help-block">{{ 'general.form.gov_id_no.help_valid' | translate }}</span>
+</form-group>
+
+<form-group label="{{ 'general.form.lname.placeholder' | translate }}">
+  <input
+    class="form-control"
+    name="billing.last_name"
+    ng-model="info.form_data.billing.last_name"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.fname.label' | translate }}">
+  <input
+    class="form-control"
+    name="billing.first_name"
+    ng-model="info.form_data.billing.first_name"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.state.label' | translate }}">
+  <select
+    class="form-control"
+    id="business-zone-select"
+    name="billing.zone"
+    ng-model="info.form_data.billing.zone"
+    ng-options="('zones.' + zone.id | translate) for zone in $store.zones | filter:{country_id:info.form_data.billing.country.id} : true"
+    ng-required="true"
+    >
+  </select>
+</form-group>
+
+<form-group label="{{ 'general.form.city.label' | translate }}">
+  <input
+    class="form-control"
+    name="billing.city"
+    ng-model="info.form_data.billing.city"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.district.label' | translate }}">
+  <input
+    class="form-control"
+    name="billing.district"
+    ng-model="info.form_data.billing.district"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.address1.label' | translate }}">
+  <input
+    class="form-control"
+    name="billing.address1"
+    ng-model="info.form_data.billing.address1"
+    ng-required="true"
+    type="text">
+  <span class="help-block">{{ 'general.form.address1.help_include_town_village' | translate }}</span>
+</form-group>
+
+<form-group label="{{ 'general.form.address2.label' | translate }}">
+  <input
+    class="form-control"
+    name="billing.address2"
+    ng-model="info.form_data.billing.address2"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.postal_code.label' | translate }}">
+  <input
+    class="form-control"
+    name="billing.zipcode"
+    ng-model="info.form_data.billing.zipcode"
+    ng-required="true"
+    type="text">
+</form-group>
+
+<form-group label="{{ 'general.form.country.label' | translate }}">
+  <select
+    class="form-control"
+    id="personal-country-select"
+    name="billing.country"
+    ng-model="info.form_data.billing.country"
+    ng-options="('countries.' + country.id | translate) for country in $store.countries"
+    ng-required="true"
+    >
+  </select>
+</form-group>
+
+<form-group label="{{ 'general.form.phone.label' | translate }}">
+  <input
+    class="form-control"
+    name="phone"
+    ng-model="info.form_data.billing.phone"
+    ng-required="true"
+    type="tel">
+</form-group>

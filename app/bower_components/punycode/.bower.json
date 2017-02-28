@@ -1,0 +1,14 @@
+{
+  "name": "punycode",
+  "homepage": "https://github.com/bestiejs/punycode.js",
+  "version": "2.0.1",
+  "_release": "2.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.1",
+    "commit": "e29d10dbba04dd52cfa2481cc4daea3286bc54ed"
+  },
+  "_source": "https://github.com/bestiejs/punycode.js.git",
+  "_target": "^2.0.0",
+  "_originalSource": "punycode"
+}

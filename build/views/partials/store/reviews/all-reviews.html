@@ -1,0 +1,37 @@
+<div class="panel-heading">
+  <h2 class="text-orange pb0">Customer Reviews</h2> <!--TODO:'product.customer_reviews' | translate-->
+</div>
+<div class="panel-body">
+  <div class="pb5">
+    <div class="clearfix"></div>
+    <div>
+      <strong>TEMPORARY_ROOTSCOPE_GET_STAR_STATES</strong>: <br>
+      <code>{{TEMPORARY_ROOTSCOPE_GET_STAR_STATES(product.rating.average) | json}}</code>
+    </div>
+    <div class="clearfix"></div>
+    <strong>{{'general.average_customer_review' | translate}}: </strong>
+
+
+     <!-- <span uib-rating style="font-size:1.4em"
+       ng-class="(product.rating.num_reviews > 0) ? '' : 'pr5'"
+       class="star-rating text-lighter-1x"
+       ng-model="product.rating.average"
+       rating-states="TEMPORARY_ROOTSCOPE_GET_STAR_STATES(product.rating.average, product.rating.num_reviews, false)"
+       max="5"
+       read-only="true">
+     </span> -->
+
+    {{ product.rating.average | number:2 }} {{ 'general.out_of_5_stars' | translate }}
+  </div>
+
+  <product-review
+    ng-repeat="review in reviews"
+    ng-model="review"
+    ng-if="review.abuse_count == '0' || review.abuse_removed == '1'"
+  ></product-review>
+
+  <button ng-if="!noMoreReviews" ng-click="moreReviews()" class="btn btn-orange btn-raised center">
+    <i class="material-icons material-icons-keyboard_arrow_down"></i>
+    More &nbsp;
+  </button>
+</div>

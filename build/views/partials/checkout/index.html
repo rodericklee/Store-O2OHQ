@@ -1,0 +1,49 @@
+<div class="checkout checkout-index">
+  <div class="container-fluid pb50">
+    <h1 class="border-left-orange extra-large mb20">{{'checkout.my_cart' | translate}}</h1>
+    <div ng-if="$cart.getTotalItems()>0">
+      <div class="col-md-3 pull-right-md">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h5 class="bold text-center">
+              {{'checkout.subtotal' | translate}} ({{'checkout.count_items' | translate:'{count: ' + $cart.getTotalItemsForSummary() + '}'}}):
+              <span class="text-orange">{{$cart.getSubTotal() | price}}</span>
+            </h5>
+            <a ui-sref="root.checkout.info()" class="btn btn-lg btn-orange btn-raised btn-block">
+              {{ 'general.checkout' | translate }}
+              <i class="material-icons material-icons-arrow_forward pl5 mt-3"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-9">
+        <div ngcart-cart></div>
+
+        <div class="cart-totals" ng-if="$state.$current.name == 'root.checkout'">
+
+          <div class="row subtotal">
+            <h4 class="col-lg-12 text-right bold mb20">
+              {{'checkout.subtotal' | translate}} ({{'checkout.count_items' | translate:'{count: ' + $cart.getTotalItemsForSummary() + '}'}}):
+              <span class="text-orange">{{ $cart.getSubTotal() | price }}</span>
+            </h4>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="$cart.getTotalItems() <= 0" class="alert alert-orange dropshadow" role="alert">
+        {{'checkout.empty' | translate}}
+    </div>
+
+    <div class="p0" ng-class="{'col-md-9': ($cart.getTotalItems() > 0), 'col-lg-12': ($cart.getTotalItems() == 0)}">
+      <a onClick="window.history.go(-1)" class="btn btn-default btn-raised pull-right">
+        <i class="material-icons material-icons-rotate-180 material-icons-arrow_forward mt-3"></i>
+        {{ 'general.continue_shopping' | translate }}
+      </a>
+    </div>
+
+    <div class="clearfix pb20"></div>
+  </div>
+</div>

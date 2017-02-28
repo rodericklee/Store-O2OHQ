@@ -1,0 +1,13 @@
+
+<code>rating_ng_model:      {{rating_ng_model}}</code><br>
+<code>get_star_states():    {{get_star_states()}}</code><br>
+<code>get_review_count():   {{get_review_count()}}</code><br>
+
+<span uib-rating style="position: relative; bottom: 1px;"
+  class="star-rating"
+  ng-model="rating_ng_model"
+  rating-states="get_star_states()"
+  max="max"
+  read-only="readonly">
+</span>
+<span ng-if="true">({{get_review_count()}})</span>

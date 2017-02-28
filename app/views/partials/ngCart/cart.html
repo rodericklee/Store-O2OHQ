@@ -1,0 +1,85 @@
+<div class="col-lg-12 p0" ng-show="ngCart.getTotalItems() > 0">
+
+  <div ng-repeat="item in ngCart.getCart().items track by $index" class="row" id="{{$index}}">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="col-sm-3 pb20-sm p0">
+          <img ng-src="{{item.get_image_src()}}" alt="{{item.get_image_alt()}}" class="img img-responsive center">
+        </div>
+        <div class="col-sm-9 text-lighter-1x">
+          <h4 class="mb0 mt0 text-black">
+            <b>{{ item.getName() }}</b>
+
+            <small class="pull-right">
+              <div class="text-center hidden-sm hidden-xs">{{ 'checkout.quantity' | translate}}</div>
+              <div>
+                <a
+                  class="btn btn-default"
+                  ng-click="item.setQuantity(-1, true)"
+                  >
+                  <i class="material-icons material-icons-remove text-lighter-1x"></i>
+                </a>
+                <span class="text-black bold">{{ item.getQuantity() | number }}</span>
+                <a
+                  class="btn btn-default"
+                  ng-click="item.setQuantity(1, true)"
+                  >
+                  <i class="material-icons material-icons-add text-lighter-1x"></i>
+                </a>
+              </div>
+            </small>
+
+          </h4>
+
+          <p class="mb0">
+            {{'general.by' | translate}}
+            <a ui-sref="root.brand({brand_id: item.get_brand_id()})" class="overflow-ellipsis">
+              {{item.get_brand_id() | brandMeta:'name'}}
+            </a>
+          </p>
+          <p class="mb0" ng-class="{'text-success': (item.getData().quantity > 0), 'text-danger': (item.getData().quantity == 0)}">
+            {{ 'general.product_stock.' + ((item.getData().quantity > 0) ? 'in_stock' : 'no_stock') | translate}}
+          </p>
+          <p class="mb0">
+            <div ng-if="!$store.user.does_recive_5_percent_discount">
+              <span class="price display-inline text-orange bold text-large">{{ item.getPrice() | price:false}}</span>
+            </div>
+            <div ng-if="!!$store.user.does_recive_5_percent_discount">
+              <div class="price display-inline">
+                <div class="price">
+                  <span class="display-inline text-orange bold text-large">
+                    {{ item.getPrice() | price:true}}
+                  </span>
+                </div>
+              </div>
+
+              <div class="sale-price display-inline pl5">
+                <span class="display-inline text-black text-lighter-2x bold" style="font-size: 1em;">
+                  <s>{{ item.getPrice() | price:false}}</s>&nbsp;<span class="text-success bold">(-5%)</span>
+                </span>
+              </div>
+            </div>
+          </p>
+          <div>
+            <a
+              class="btn btn-orange btn-xs"
+              style="padding:5px 10px;margin: 5px;"
+              ng-click="ngCart.removeItemBySku(item.getSku(), $index)"
+              >
+              <i class="material-icons material-icons-delete text-lighter-2x pr5 mt-3"></i> {{ 'checkout.delete' | translate}}
+            </a> |
+            <a class="btn btn-orange btn-xs" ui-sref="root.product({'sku':item.getSku()})" style="padding:5px 10px;margin: 5px;">
+              {{ 'checkout.view_item' | translate}}
+            </a>
+            <span class="hidden-xs">
+              |
+              <a class="btn btn-orange btn-xs overflow-ellipsis" ui-sref="root.brand({brand_id: item.get_brand_id()})" style="padding:5px 10px;margin: 5px;">
+                {{item.get_brand_id() | brandMeta:'name'}} {{ 'general.brand' | translate }}
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

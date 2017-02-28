@@ -1,0 +1,8 @@
+# <IfModule pagespeed_module>
+#     ModPagespeed on
+#     ModPagespeedDisallow */views/*
+# </IfModule>
+
+<IfModule pagespeed_module>
+        ModPagespeed off
+</IfModule>

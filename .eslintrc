@@ -1,0 +1,5 @@
+# extends: angular
+# rules:
+#   indent: [2]
+#   quotes: [2, "double", "avoid-escape"]
+plugins: ["json", "html"]

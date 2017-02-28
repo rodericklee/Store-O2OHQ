@@ -1,0 +1,247 @@
+{
+  "general": {
+    "o2o_hq": "O2O HQ",
+    "social_marketer": "Social Marketer",
+    "b2": "Social Marketer",
+    "brand": "Brand",
+    "brand_owner": "Brand Owner",
+    "b1": "Brand Owner",
+    "ok": "Ok",
+    "yes": "Yes",
+    "no": "No",
+    "save": "Save",
+    "cancel": "Cancel",
+    "by": "by",
+    "close": "Close",
+    "signup": "Signup",
+    "register": "Register",
+    "register_cta": "Register Now",
+    "help": "Help",
+    "signin": "Sign in",
+    "login": "Login",
+    "logout": "Logout",
+    "search": "Search",
+    "product": "Product",
+    "products": "Products",
+    "product_search": "Product Search ...",
+    "created": "Created",
+    "modified": "Modified",
+    "submit": "Submit",
+    "checkout": "Checkout",
+    "continue": "Continue",
+    "continue_shopping": "Continue Shopping",
+    "cart": "Cart",
+    "add_to_cart": "Add to Cart",
+    "update_cart": "Update Cart",
+    "buy_it_now": "Buy It Now",
+    "remove_from_cart": "Remove from Cart",
+    "quantity": "Qty:",
+    "reviews": "Reviews",
+    "average_customer_review": "Average Customer Review",
+    "number_of_customer_reviews": "There are {{num}} Customer Reviews",
+    "out_of_5_stars": "out of 5 stars",
+    "categories": "Categories",
+    "required": "Required",
+    "not_required": "Not Required",
+    "loading": "Loading",
+    "error": "Error",
+    "warning": "Warning",
+    "success": "Success",
+    "form": {
+      "error": {
+        "general": "Please fix the errors above.",
+        "required": "Please provide the required highlighted fields."
+      },
+      "company_name": {
+        "label": "Company Name",
+        "placeholder": "Name of Company"
+      },
+      "personal_company_name": {
+        "label": "Sole Proprietor Company Name",
+        "placeholder": "Name of Company"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Name",
+        "error_required": "Name is Required."
+      },
+      "gov_id_no": {
+        "label": "Gov. ID Number",
+        "placeholder": "Government issued ID Number",
+        "help_valid": "Valid ID Numbers: Resident Identity Card or Passport Number",
+        "error_required": "Gov. ID Number is Required."
+      },
+      "fname": {
+        "label": "First Name",
+        "placeholder": "First Name",
+        "error_required": "First Name is Required."
+      },
+      "lname": {
+        "label": "Last Name",
+        "placeholder": "Last Name",
+        "error_required": "Last Name is Required."
+      },
+      "phone": {
+        "label": "Phone Number",
+        "placeholder": "Phone Number",
+        "error_required": "Phone Number is Required.",
+        "error_tel": "Please Enter a valid Phone Number."
+      },
+      "email": {
+        "label": "Email Address",
+        "placeholder": "Email Address",
+        "error_required": "Email Address is Required.",
+        "error_email": "Please Enter a valid Email Address."
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Desired Username",
+        "error_required": "Username is Required."
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Desired Password",
+        "error_required": "Password is Required."
+      },
+      "password_confirm": {
+        "label": "Confirm Password",
+        "placeholder": "Confirm Password",
+        "error_required": "Confirm Password is Required."
+      },
+
+      "address1": {
+        "label": "Address 1",
+        "placeholder": "Street Name",
+        "help_include_town_village": "Please include the Village Name"
+      },
+      "address2": {
+        "label": "Address 2",
+        "placeholder": "Floor, House, Apartment, Unit, or Building Number"
+      },
+      "city": {
+        "label": "City/County",
+        "placeholder": "City/County"
+      },
+      "district": {
+        "label": "District/Township",
+        "placeholder": "District/Township"
+      },
+      "state": {
+        "label": "Province/State"
+      },
+      "country": {
+        "label": "Country",
+        "placeholder": "Country"
+      },
+      "postal_code": {
+        "label": "Postal Code",
+        "placeholder": "Postal Code",
+        "error_required": "Postal Code is Required."
+      },
+
+      "toc_agreement": {
+        "label": "I agree to the O2O Worldwide",
+        "checkout_label": "By placing your order, you agree to O2O's",
+        "link": "terms & conditions",
+        "error_required": "Please accecpt the Terms and Conditions."
+      },
+
+      "cta1": "Continue",
+      "cta2": "Submit",
+      "general_error": "Please fix the errors above",
+      "privacy": {
+        "pre": "Your",
+        "link_text": "Privacy",
+        "post": "is Protected"
+      }
+    },
+    "product_stock": {
+      "in_stock": "In stock",
+      "no_stock": "Out of Stock",
+      "only": "Only {{quantity}} left in stock"
+    },
+    "product-tags": {
+      "featured": "Featured"
+    },
+    "address": {
+      "change_address": "Change Address",
+      "discard_changes": "Discard Changes"
+    },
+    "errors": {
+      "login_required": "You must be logged in to access this resource.",
+      "no_order_found_for_id": "No order found for Order ID"
+    }
+  },
+  "top-nav": {
+    "toggle-nav": "Toggle navigation",
+    "language": {
+      "language-selector-label": "Language: English",
+      "en": "English",
+      "zh-hans": "Simp. Chinese (简体中文)"
+    },
+    "sell-link": "Sell on O2O",
+    "your-account-dropdown": {
+      "line-1": "Hello. Sign in",
+      "line-1-logged-in": "Hello,",
+      "line-2": "Your Account",
+      "account": "Your Account",
+      "new-on-o2o": "New on O2O?",
+      "start-here": "Start here",
+      "marketer": "Your Social Marketer",
+      "backoffice": "Your Backoffice",
+      "dashboard": "Your Dashboard",
+      "customers_orders": "Customer's Orders",
+      "orders": "Your Orders",
+      "reviews": "Your Reviews",
+      "business_center": "Your Business Center",
+      "qr_code": "My QR Code",
+      "qr_code-share": "QR Code share URL",
+      "qr_code-site": "My site URL",
+      "messages": "Your Messages",
+      "logout": "Not {{ name }}? Sign Out"
+    }
+  },
+  "footer": {
+    "signup": {
+      "h3": "NEWS & UPDATES",
+      "p": "KEEP ME IN THE LOOP OF NEW PRODUCT UPDATES",
+      "email-placeholder": "Email Address",
+      "error_email": "Please provide a valid Email Address",
+      "error_required": "Please provide an Email Address",
+      "submit_success": "Successfully Signed up for O2O News and Updates. Thank You."
+    },
+    "links": {
+      "1": {
+        "title": "Company",
+        "home": "Home",
+        "about": "About",
+        "join": "Join Now",
+        "products": "Products",
+        "contact": "Contact"
+      },
+      "2": {
+        "title": "Associates",
+        "join": "Join Now",
+        "support": "Customer Support",
+        "request_brands": "Request Brands",
+        "toc": "Terms & Conditions"
+      }
+    },
+    "rights": "All Rights Reserved",
+    "icp" : "Fujian ICP: 15016859"
+  },
+  "notify" : {
+    "app_upgrade": {
+      "update_needed": "App Update Available",
+      "download_now": "Download Now"
+    },
+    "error": {
+      "account_must_be_loggedin": "You must login before you can view your Account"
+    },
+    "success" : {
+      "login_fetched" : "Successfully Logged in {{name}}",
+      "register_login_success" : "Successfully Registered {{name}}",
+      "logged_out" : "Successfully Logged Out"
+    }
+  }
+}

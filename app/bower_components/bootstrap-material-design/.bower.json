@@ -1,0 +1,54 @@
+{
+  "name": "bootstrap-material-design",
+  "homepage": "http://fezvrasta.github.io/bootstrap-material-design",
+  "authors": [
+    "Federico Zivolo <info@mywebexpression.com>"
+  ],
+  "description": "Material Design theme for Bootstrap 3",
+  "main": [
+    "dist/css/bootstrap-material-design.css",
+    "dist/js/material.js",
+    "dist/css/ripples.css",
+    "dist/js/ripples.js"
+  ],
+  "ignore": [
+    "test",
+    "screenshots",
+    "demo",
+    ".editorconfig",
+    ".gitignore",
+    ".jshintrc",
+    ".travis.yml",
+    "CONTRIBUTING.md",
+    "Gruntfile.json",
+    "index.html",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "keywords": [
+    "material",
+    "design",
+    "bootstrap",
+    "theme",
+    "google",
+    "android"
+  ],
+  "license": "https://github.com/FezVrasta/bootstrap-material-design/blob/master/LICENSE.md",
+  "dependencies": {
+    "jquery": "^2.2",
+    "bootstrap": "~3.3.6",
+    "bootstrap-sass": "~3.3.6"
+  },
+  "_release": "22c19996d9",
+  "_resolution": {
+    "type": "branch",
+    "branch": "dist",
+    "commit": "22c19996d9c2ea4e06f1f67fc5a0eeb802f1f013"
+  },
+  "_source": "https://github.com/wallter/bootstrap-material-design.git",
+  "_target": "dist",
+  "_originalSource": "https://github.com/wallter/bootstrap-material-design.git"
+}

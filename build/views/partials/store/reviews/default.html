@@ -1,0 +1,73 @@
+<div class="p10 mt5 mb5">
+  <h3 class="mb0 mt0">{{review.title}}</h3>
+  <p class=" pb0 mb0 pt0 mt0">
+    Created by
+    <span ng-if="review.author_user_id">
+      <a ng-if="review.author_user_id"
+         uisref="profile({user_id: review.author_user_id})">
+        {{review.author_username}}
+      </a>
+    </span>
+    on <span>{{ review.created | amCalendar}}</span>
+  </p>
+  <div>
+
+    <span uib-rating style="font-size:1.4em"
+      ng-class="(product.rating.num_reviews > 0) ? '' : 'pr5'"
+      class="star-rating text-lighter-1x"
+      ng-model="review.star_rating"
+      rating-states="TEMPORARY_ROOTSCOPE_GET_STAR_STATES(review.star_rating, false, false)"
+      max="5"
+      read-only="true">
+    </span>
+
+    {{ review.star_rating }} {{ 'general.out_of_5_stars' | translate }}
+
+  </div>
+  <blockquote ng-if="review.body" class="pl10 mb0 text-normal">{{review.body}}
+  </blockquote>
+  <div ng-if="review.body">
+    <br/>
+    <ng-pluralize count="num_helpful"
+                  when="{'0': '',
+                     'one': '1 person found this review helpful.',
+                     'other': '{} people found this review helpful.'}">
+    </ng-pluralize>
+    <span ng-if="!voted && !vote_sending && !is_current_users_review">
+      <span>Was this review helpful?</span>
+      <span class="text-nowrap">
+      <a ng-click="submit_vote('helpful')" class="btn btn-sm btn-primary btn-helpful">
+        <span class="text-lighter-2x">
+          {{'general.yes' | translate}}
+          <i class="material-icons material-icons-thumb_up"></i>
+        </span>
+      </a>
+      <span class="text-lighter-2x">|</span>
+      <a ng-click="submit_vote('unhelpful')"
+      class="btn btn-sm btn-primary btn-helpful">
+        <span class="text-lighter-2x">
+          {{'general.no' | translate}}
+          <i class="material-icons material-icons-thumb_down"></i>
+        </span>
+      </a>
+      <span class="text-lighter-2x">|</span>
+      <a
+        class="btn btn-sm btn-danger"
+        ng-click="submit_vote('abusive')"
+        href="javascript:void(0)">
+        <span class="text-lighter-2x">
+          {{'product.review.report_abuse' | translate}}
+          <i class="material-icons material-icons-report_problem"></i>
+        </span>
+      </a>
+      </span>
+    </span>
+    <span ng-if="vote_sending">
+      <spinner style="width: 16px;"></spinner>
+    </span>
+    <span ng-if="voted">
+      <p><i class="fa fa-check" style="color: #59b75c"></i> Thank you for your feedback.</p>
+    </span>
+
+  </div>
+</div>

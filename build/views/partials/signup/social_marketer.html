@@ -1,0 +1,602 @@
+<div class="bg-signup clearfix">
+  <div class="pt20 pb20" style="background: url('assets/images/signup/signup-bg.jpg');">
+    <div class="container">
+      <div class="col-md-8 center">
+        <h1 class="border-left-orange mb20">
+          <span class="text-white">
+            <i class="material-icons material-icons-person_add pb5"></i>
+            {{'signup.customer.sm_signup' | translate}}
+          </span>
+          <a ui-sref="root.signup" class="btn btn-orange btn-lg btn-raised mt0 pull-right ml10">
+            <i class="fa fa-chevron-circle-left pr5"></i>
+            {{'signup.customer.customer_signup' | translate}}
+          </a>
+
+        </h1>
+      </div>
+    </div>
+
+  </div>
+  <!-- <img src="assets/images/signup/signup-bg.jpg" alt="" /> -->
+</div>
+<div class="" style="padding-top: 0px;">
+  <div ng-if="!signup.submit_success" class="col-xs-12 dropshadow white-bg">
+    <div class="container pt20">
+      <div class="p0">
+        <h1 class="text-center extra-large" translate="signup.marketer.h1"></h1>
+        <div class="marketing-signup-top-graphics-container row clearfix mb20">
+          <img alt="" class="img-responsive col-md-6 pt20"
+            src="assets/images/signup/marketer/start_half_graphic.png">
+          <div class="col-md-6 pt50 pt20-md">
+            <ul class="fa-ul">
+              <li class="pb10 pt10">
+                <i class="fa fa-li fa-check fa-2x text-orange"></i>
+                <span class="text-1-5x">{{'signup.marketer.list.1' | translate}}</span>
+              </li>
+              <li class="pb10 pt10">
+                <i class="fa fa-li fa-check fa-2x text-orange"></i>
+                <span class="text-1-5x">{{'signup.marketer.list.2' | translate}}</span>
+              </li>
+              <li class="pb10 pt10">
+                <i class="fa fa-li fa-check fa-2x text-orange"></i>
+                <span class="text-1-5x">{{'signup.marketer.list.3' | translate}}</span>
+              </li>
+              <li class="pb10 pt10">
+                <i class="fa fa-li fa-check fa-2x text-orange"></i>
+                <span class="text-1-5x">{{'signup.marketer.list.4' | translate}}</span>
+              </li>
+              <li class="pb10 pt10">
+                <i class="fa fa-li fa-check fa-2x text-orange"></i>
+                <span class="text-1-5x">{{'signup.marketer.list.5' | translate}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+  <div class="container pb50">
+    <div id="marketer_signup_form" ng-form="marketer_signup" ng-keydown="key_watch_register($event)">
+      <div ng-if="!signup.submit_success" >
+        <div class="row" ng-show="!signup.success">
+
+          <div class="col-xs-12 pt20 pb20">
+            <h1 class="border-left-orange h2 extra-large text-lighter-1x">
+              {{'signup.marketer.h2' | translate}}
+            </h1>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="col-md-6">
+            <div class="panel">
+              <div class="panel-heading">
+                <h3 class="extra-large"> {{'signup.marketer.info.legend_h3.text' | translate}} <small> {{'signup.marketer.info.legend_h3.small' | translate}} </small></h3>
+              </div>
+              <div class="panel-body">
+                <label>{{'signup.marketer.info.is_business.label' | translate}}</label>
+                <div class="form-group mt0">
+                  <label class="col-md-1 control-label"for="is_business"></label>
+                  <div class="col-md-11">
+                    <div class="radio radio-primary">
+                      <label>
+                        <input ng-click="is_business_click(1)" type="radio" name="is_business" id="is_business-0">
+
+                        {{'signup.marketer.info.is_business.option-0.text' | translate}}
+                        <small>
+                          {{'signup.marketer.info.is_business.option-0.small.text' | translate}}
+                          <strong>
+                            {{'signup.marketer.info.is_business.option-0.small.strong' | translate}}
+                          </strong>
+                        </small>
+                      </label>
+                    </div>
+                    <div class="radio radio-primary">
+                      <label>
+                        <input ng-click="is_business_click(0)" type="radio" name="is_business" id="is_business-1">
+                        {{'signup.marketer.info.is_business.option-1.text' | translate}}
+                        <small>
+                          {{'signup.marketer.info.is_business.option-1.small.text' | translate}}
+                          <strong>
+                            {{'signup.marketer.info.is_business.option-1.small.strong' | translate}}
+                          </strong>
+                        </small>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div ng-if="count_is_business_click > 1" class="alert alert-info dropshadow" role="alert">
+              <strong>
+                {{'signup.marketer.info.help_notice.strong1' | translate}}
+              </strong>
+              {{'signup.marketer.info.help_notice.text1' | translate}}
+              <strong>
+                {{'signup.marketer.info.help_notice.strong2' | translate}}
+              </strong>
+              {{'signup.marketer.info.help_notice.text2' | translate}}
+              <strong>
+                {{'signup.marketer.info.help_notice.strong3' | translate}}
+              </strong>
+              {{'signup.marketer.info.help_notice.text3' | translate}}
+            </div>
+
+            <div ng-if="signup.form_data.is_business >= 0">
+
+              <div ng-if="signup.form_data.is_business">
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h3 class="extra-large">{{'signup.marketer.info.business.legend_h3' | translate}}</h3>
+                  </div>
+                  <div class="panel-body">
+
+                    <form-group label="{{'general.form.company_name.label' | translate}}">
+                      <input
+                        class="form-control"
+                        name="business.company_name"
+                        ng-model="signup.form_data.business.company_name"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{'signup.marketer.info.business.business_license_id_number.label' | translate}}">
+                      <input
+                        class="form-control"
+                        name="billing.business_license_id_number"
+                        ng-model="signup.form_data.business.business_license_id_number"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{'signup.marketer.info.business.business_tax_id.label' | translate}}">
+                      <input
+                        class="form-control"
+                        name="billing.business_tax_id"
+                        ng-model="signup.form_data.business.business_tax_id"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text">
+                    </form-group>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h3 class="extra-large">{{ 'signup.marketer.info.business.business_address' | translate }}</h3>
+                  </div>
+                  <div class="panel-body">
+
+                    <form-group label="{{ 'general.form.state.label' | translate }}">
+                      <select
+                        class="form-control"
+                        id="business-zone-select"
+                        name="business.zone"
+                        ng-model="signup.form_data.business.zone"
+                        ng-options="('zones.' + zone.id | translate) for zone in $store.zones | filter:{country_id:signup.form_data.business.country.id} : true"
+                        ng-required="signup.form_data.is_business === 1">
+                      </select>
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.city.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="business.city"
+                        ng-model="signup.form_data.business.city"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.district.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="business.district"
+                        ng-model="signup.form_data.business.district"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.address1.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="business.address1"
+                        ng-model="signup.form_data.business.address1"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text">
+                      <span class="help-block">{{ 'general.form.address1.help_include_town_village' | translate }}</span>
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.address2.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="business.address2"
+                        ng-model="signup.form_data.business.address2"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.country.label' | translate }}">
+                      <select
+                        class="form-control"
+                        id="personal-country-select"
+                        name="business.country"
+                        ng-model="signup.form_data.business.country"
+                        ng-options="('countries.' + country.id | translate) for country in $store.countries"
+                        ng-required="signup.form_data.is_business === 1">
+                      </select>
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.postal_code.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="business.zipcode"
+                        ng-model="signup.form_data.business.zipcode"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text">
+                    </form-group>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h3 class="extra-large">{{'signup.marketer.info.business.business_contact' | translate}}</h3>
+                  </div>
+                  <div class="panel-body">
+                    <form-group label="{{ 'general.form.name.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="business.contact_name"
+                        ng-model="signup.form_data.business.contact_name"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.email.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="business.contact_email"
+                        ng-model="signup.form_data.business.contact_email"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="email">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.phone.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="business.contact_phone"
+                        ng-model="signup.form_data.business.contact_phone"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="tel">
+                    </form-group>
+
+                    <form-group label="{{'general.form.gov_id_no.label' | translate}}">
+                      <input
+                        class="form-control"
+                        id="personal.gov_id_no"
+                        name="personal.gov_id_no"
+                        ng-model="signup.form_data.business.gov_id_no"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text"/>
+                      <span class="help-block">{{ 'general.form.gov_id_no.help_valid' | translate }}</span>
+                    </form-group>
+                  </div>
+                </div>
+              </div>
+
+              <div ng-if="!signup.form_data.is_business">
+                <div class="panel">
+                  <div class="panel-heading">
+                    <h3 class="extra-large">{{'signup.marketer.info.personal.legend_h3' | translate}}</h3>
+                  </div>
+                  <div class="panel-body">
+                    <form-group label="{{'general.form.gov_id_no.label' | translate}}">
+                      <input
+                        class="form-control"
+                        id="personal.gov_id_no"
+                        name="personal.gov_id_no"
+                        ng-model="signup.form_data.personal.gov_id_no"
+                        ng-required="signup.form_data.is_business === 0"
+                        type="text"/>
+                    </form-group>
+
+                    <form-group label="{{'general.form.personal_company_name.label' | translate}}">
+                      <input
+                        class="form-control"
+                        name="personal.company_name"
+                        ng-model="signup.form_data.personal.company_name"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{'signup.marketer.info.business.business_tax_id.label' | translate}}">
+                      <input
+                        class="form-control"
+                        name="billing.business_tax_id"
+                        ng-model="signup.form_data.personal.business_tax_id"
+                        ng-required="signup.form_data.is_business === 1"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.lname.placeholder' | translate }}">
+                      <input
+                        class="form-control"
+                        name="personal.last_name"
+                        ng-model="signup.form_data.personal.last_name"
+                        ng-required="signup.form_data.is_business === 0"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.fname.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="personal.first_name"
+                        ng-model="signup.form_data.personal.first_name"
+                        ng-required="signup.form_data.is_business === 0"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.state.label' | translate }}">
+                      <select
+                        class="form-control"
+                        id="personal-zone-select"
+                        name="personal.zone"
+                        ng-model="signup.form_data.personal.zone"
+                        ng-options="('zones.' + zone.id | translate) for zone in $store.zones | filter:{country_id:signup.form_data.personal.country.id} : true"
+                        ng-required="signup.form_data.is_business === 0">
+                      </select>
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.city.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="personal.city"
+                        ng-model="signup.form_data.personal.city"
+                        ng-required="signup.form_data.is_business === 0"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.district.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="personal.district"
+                        ng-model="signup.form_data.personal.district"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.address1.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="personal.address1"
+                        ng-model="signup.form_data.personal.address1"
+                        ng-required="signup.form_data.is_business === 0"
+                        type="text">
+                      <span class="help-block">{{ 'general.form.address1.help_include_town_village' | translate }}</span>
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.address2.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="personal.address2"
+                        ng-model="signup.form_data.personal.address2"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.postal_code.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="personal.zipcode"
+                        ng-model="signup.form_data.personal.zipcode"
+                        ng-required="signup.form_data.is_business === 0"
+                        type="text">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.phone.label' | translate }}">
+                      <input
+                        class="form-control"
+                        name="personal.contact_phone"
+                        ng-model="signup.form_data.personal.contact_phone"
+                        required
+                        type="tel">
+                    </form-group>
+
+                    <form-group label="{{ 'general.form.country.label' | translate }}">
+                      <select
+                        class="form-control"
+                        id="personal-country-select"
+                        name="personal.country"
+                        ng-model="signup.form_data.personal.country"
+                        ng-options="('countries.' + country.id | translate) for country in $store.countries"
+                        ng-required="signup.form_data.is_business === 0">
+                      </select>
+                    </form-group>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div ng-if="signup.form_data.is_business >= 0">
+            <div class="col-md-6">
+              <div class="panel">
+                <div class="panel-heading">
+                  <h3 class="extra-large">{{'signup.marketer.account.legend_h3' | translate}}</h3>
+                </div>
+                <div class="panel-body">
+
+
+                  <form-group label="{{ 'general.form.lname.placeholder' | translate }}">
+                    <input
+                      class="form-control"
+                      name="last_name"
+                      ng-model="signup.form_data.last_name"
+                      required
+                      type="text">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.fname.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="first_name"
+                      ng-model="signup.form_data.first_name"
+                      required
+                      type="text">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.email.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="email"
+                      ng-model="signup.form_data.email"
+                      required type="text">
+                    <p class="help-block">{{ 'signup.marketer.account.email.help' | translate }}.</p>
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.phone.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="phone"
+                      ng-model="signup.form_data.phone"
+                      required
+                      type="tel">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.password.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="password"
+                      ng-model="signup.form_data.password"
+                      required
+                      type="password">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.password_confirm.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="password_confirm"
+                      ng-model="signup.form_data.password_confirm"
+                      required
+                      type="password">
+                  </form-group>
+
+                  <form-group label="{{ 'general.form.username.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="username"
+                      ng-model="signup.form_data.username"
+                      required
+                      type="text">
+                    <div class="">
+
+                      <div class="help-block position-relative">{{ 'signup.marketer.account.username.help1' | translate }}</div>
+
+                      <div
+                        class="pl20 pt20 text-orange lead text-1-5x position-relative"
+                        target="_blank"
+                        ng-bind-html="get_usernmae_html()"
+                        >
+                      </div>
+
+                      <br>
+
+                      <div class="help-block position-relative">*{{ 'signup.marketer.account.username.help2' | translate }}</div>
+                      <div class="help-block position-relative"><em>*{{ 'signup.marketer.account.username.help3' | translate }}</em></div>
+                    </div>
+                  </form-group>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-heading">
+                  <h3 class="extra-large text-light">{{ 'signup.marketer.optional.legend_h3' | translate }}</h3>
+                </div>
+                <div class="panel-body">
+
+                  <form-group label="{{ 'signup.marketer.optional.referral.label' | translate }}">
+                    <input
+                      class="form-control"
+                      name="text"
+                      ng-model="signup.form_data.referral"
+                      type="text">
+                    <p class="help-block">{{ 'signup.marketer.optional.referral.placeholder' | translate }}</p>
+                  </form-group>
+                </div>
+              </div>
+
+              <div class="pull-right">
+                <div class="form-group clearfix">
+                  <div class="checkbox">
+                    <label>
+                      <input ng-model="signup.form_data.toc" name="toc" type="checkbox" required>
+
+                      <span class="pl5">
+                        {{ 'general.form.toc_agreement.label' | translate }}
+                        <a ui-sref="root.toc" target="_blank">
+                          {{ 'general.form.toc_agreement.link' | translate }}
+                        </a>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                <div ng-if="signup.show_form_errors" class="pt20">
+                  <div ng-if="marketer_signup.toc.$error.required" class="alert alert-danger dropshadow">
+                    {{ 'general.form.toc_agreement.error_required' | translate }}
+                  </div>
+                  <div ng-if="marketer_signup.$error.required" class="alert alert-danger dropshadow">
+                    {{ 'general.form.error.required' | translate }}
+                  </div>
+                </div>
+
+                <div ng-if="signup.submit_error" class="form-group ml0">
+                  <div class="clearfix"></div>
+
+                  <div class="alert alert-danger dropshadow" role="alert">
+                    {{ 'general.error' | translate }}: {{signup.submit_error}}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <a ng-click="signup.submit()" class="btn btn-lg btn-orange btn-raised pull-right">
+                     {{ 'general.register_cta' | translate }}
+                     <i class="fa fa-user-plus pl5"></i></a>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div ng-if="signup.submit_success" class="container pt50">
+        <div class="col-md-6 col-lg-7 center well">
+          <div ng-if="signup.submit_success" class="alert alert-success text-larger mb50" role="alert">
+            <h2 class="extra-large">
+              {{ 'general.success' | translate }} <br>
+              {{signup.submit_success}}
+            </h2>
+          </div>
+
+          <div ng-if="signup.backoffice_link !== false" class="full-width clearfix">
+            <a ui-sref="root.home" class="btn btn-lg btn-primary pull-left btn-raised">
+              <i class="fa fa-chevron-circle-left pr5"></i>
+              {{ 'signup.complete.continue_shopping' | translate }}
+            </a>
+            <a ng-href="{{signup.backoffice_link}}" target="_blank" class="btn btn-lg btn-orange btn-raised pull-right">
+              {{ 'signup.complete.goto_backoffice' | translate }}
+              <i class="fa fa-chevron-circle-right pl5"></i>
+            </a>
+          </div>
+
+          <div ng-if="signup.backoffice_link === false" class="full-width clearfix">
+            <a ui-sref="root.home" class="btn btn-lg btn-orange center btn-raised">
+              {{ 'signup.complete.continue_shopping' | translate }}
+              <i class="fa fa-chevron-circle-right pl5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
